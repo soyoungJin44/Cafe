@@ -3,10 +3,10 @@ package com.javaex.user;
 public class UserDrinkVo {
 	
 	//필드
-	private int drink_id;	//상품번호
+	private int drinkId;	//상품번호
 	private String drink;	//상품명
-	private String drink_content;	//상품설명
-	private String drink_price;		//상품가격
+	private String drinkContent;	//상품설명
+	private String drinkPrice;		//상품가격
 	
 	//생성자
 
@@ -14,20 +14,20 @@ public class UserDrinkVo {
 		super();
 	}
 	
-	public UserDrinkVo(int drink_id, String drink, String drink_content, String drink_price) {
-		this.drink_id = drink_id;
+	public UserDrinkVo(int drinkId, String drink, String drinkContent, String drinkPrice) {
+		this.drinkId = drinkId;
 		this.drink = drink;
-		this.drink_content = drink_content;
-		this.drink_price = drink_price;
+		this.drinkContent = drinkContent;
+		this.drinkPrice = drinkPrice;
 	}
 	//메서드 gs
 
 	public int getDrink_id() {
-		return drink_id;
+		return drinkId;
 	}
 
-	public void setDrink_id(int drink_id) {
-		this.drink_id = drink_id;
+	public void setDrink_id(int drinkid) {
+		this.drinkId = drinkId;
 	}
 
 	public String getDrink() {
@@ -38,20 +38,20 @@ public class UserDrinkVo {
 		this.drink = drink;
 	}
 
-	public String getDrink_content() {
-		return drink_content;
+	public String getDrinkContent() {
+		return drinkContent;
 	}
 
-	public void setDrink_content(String drink_content) {
-		this.drink_content = drink_content;
+	public void setDrinkContent(String drinkContent) {
+		this.drinkContent = drinkContent;
 	}
 
-	public String getDrink_price() {
-		return drink_price;
+	public String getDrinkPrice() {
+		return drinkPrice;
 	}
 
-	public void setDrink_price(String drink_price) {
-		this.drink_price = drink_price;
+	public void setDrink_price(String drinkPrice) {
+		this.drinkPrice = drinkPrice;
 	}
 
 
@@ -59,8 +59,8 @@ public class UserDrinkVo {
 	//메서드 일반
 	@Override
 	public String toString() {
-		return "DrinkVo [drink_id=" + drink_id + ", drink=" + drink + ", drink_content=" + drink_content
-				+ ", drink_price=" + drink_price + "]";
+		return "DrinkVo [drinkId=" + drinkId + ", drink=" + drink + ", drinkContent=" + drinkContent
+				+ ", drinkPrice=" + drinkPrice + "]";
 	}
 	
 	
