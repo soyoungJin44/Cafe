@@ -30,7 +30,7 @@ public class UserApp {
 			String num = sc.nextLine();
 
 			// (로그인)
-			loginNo = users.get(userId);
+			loginNo = 3;
 			if (num.equals("1")) {
 
 				while (on2) {
@@ -69,6 +69,7 @@ public class UserApp {
 								System.out.println(drink.get(i));
 							}
 								boolean stop2 = true;
+								int rid = 0;
 							// List<Integer> foodList = new ArrayList<Integer>(); : 주문받은것 관리용 리스트
 							// 주문하기 로직
 							// 반복
@@ -81,7 +82,7 @@ public class UserApp {
 								
 								while (stop2) {
 									
-									System.out.print("원하시는 상품을 입력해주세요:");
+									System.out.print("원하시는 상품을 입력해주세요(0이면 종료):");
 									food = sc.nextInt(); // 번호로 입력받고
 									
 									if (food == 0) {
@@ -95,7 +96,7 @@ public class UserApp {
 									
 									System.out.println("<주문내역>");
 									
-									userDao.insertReceipt(loginNo);
+									rid = userDao.insertReceipt(loginNo);
 								
 
 								UserVo result = new UserVo(food, amount);
@@ -103,6 +104,13 @@ public class UserApp {
 								
 								}
 							}
+							
+							for(int i=0; i<foodList.size();i++) {
+								userDao.insertUserOrder(rid,loginNo,foodList.get(i).getFood(),foodList.get(i).getAmount());
+								
+								System.out.println();
+							}
+							
 
 							// 반복
 							/*

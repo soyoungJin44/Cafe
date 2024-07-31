@@ -93,6 +93,5 @@ public class UserVo {
 	   public String toString() {
 	      return "UserVo [userId=" + userId + ", id=" + id + ", pw=" + pw + ", name=" + name + ", hp=" + hp + "]";
 	   }
-
-	}
-
+	
+}
