@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.javaex.user.UserDao;
-import com.javaex.user.UserDrinkVo;
-import com.javaex.user.UserVo;
-
 public class App2 {
 
 	public static void main(String[] args) {
@@ -15,6 +11,7 @@ public class App2 {
 		UserDao userDao = new UserDao(); // UserDao 주소값 가져오기
 		Scanner sc = new Scanner(System.in);
 		List<UserVo> foodList = new ArrayList<UserVo>();
+		UserVo userVo = new UserVo();	//로그인시 아이디확인용
 
 		boolean on = true; // 목록 while문
 		boolean on2 = true; // 로그인 while문
@@ -36,6 +33,7 @@ public class App2 {
 			// (로그인)
 			loginNo = 3;
 			if (num.equals("1")) {
+				
 
 				while (on2) {
 					System.out.println("============= 로그인 ===============");
@@ -44,6 +42,16 @@ public class App2 {
 					System.out.print("비밀번호를 입력해주세요:");
 					String pw = sc.nextLine();
 
+					userVo = userDao.userLogin(id, pw);
+					if ( userVo == null ) {
+						System.out.println("아이디와 비번을 확인해주세요");
+						break;
+					} else {
+						loginNo = userVo.getUserId();
+						//회원번호
+					}
+					
+					
 					// 로그인
 
 					System.out.println("============= 로그인성공 ===============");
@@ -100,10 +108,10 @@ public class App2 {
 	                        
 	                        while (stop) {
 
-	                              System.out.print("원하시는 상품을 입력해주세요(0이면 종료):");
+	                              System.out.print("원하시는 상품을 입력해주세요(-1이면 종료):");
 	                              food = sc.nextInt(); 
 
-	                              if (food == 0) {
+	                              if (food == -1) {
 	                                 stop = false;
 	                                 //stop2 = false;
 

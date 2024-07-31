@@ -22,8 +22,13 @@ public class UserVo {
 		   this.food = food;
 		   this.amount = amount;
 	   }
+	   
+	   public UserVo(String id, String pw) {
+		   this.id = id;
+		   this.pw = pw;
+	   }
 
-	   public UserVo( String id, String pw, String name, String hp, int userId) { // 회원가입시 입력하는 정보
+	   public UserVo(int userId, String id, String pw, String name, String hp) { // 회원가입시 입력하는 정보
 	      this.userId = userId;
 	      this.id = id;
 	      this.pw = pw;

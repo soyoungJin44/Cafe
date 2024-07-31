@@ -127,7 +127,68 @@ public class UserDao {
 
 		return count;
 	}
+	//회원 로그인 조회 메서드
+	
+	public UserVo userLogin(String uid, String upw) {
 
+		int count = -1;
+
+		this.getConnection();
+
+		UserVo userVo = null;
+
+		try {
+
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// *sql문 준비
+			String query = "";
+			query += " select  	user_id, ";
+			query += " 			id, ";
+			query += " 		    pw, ";
+			query += "     		user_name, ";
+			query += "     		user_hp ";
+			query += " from users ";
+			query += " where id = ? ";
+			query += " and pw = ? ";
+
+			// *바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, uid);
+			pstmt.setString(2, upw);
+
+			// - 실행
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리
+
+			while (rs.next()) {
+
+				int userId = rs.getInt("user_id");
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String name = rs.getString("user_name");
+				String hp = rs.getString("user_hp");
+
+				userVo = new UserVo(userId, id, pw, name, hp);
+
+				count++;
+
+			}
+			System.out.println("로그인 되었습니다");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return userVo;
+
+	}
+	
+	
+	
+	
 	// 회원정보 수정메서드
 	public int updateUser(String id, String pw, String name, String hp, int userId) {
 		int count = -1;
