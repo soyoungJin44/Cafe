@@ -185,7 +185,7 @@ public class App2 {
 		               System.out.println("회원가입이 완료되었습니다");
 
 		               break;
-
+  
 		            }
 
 		            // 프로그램 종료
