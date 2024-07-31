@@ -11,7 +11,7 @@ public class UserApp {
 		boolean on = true; // 목록 while문
 		boolean on2 = true; // 로그인 while문
 		boolean on3 = true; // 로그인성공시 while문
-		boolean on4 = true;	//회원가입 while문
+		boolean on4 = true; // 회원가입 while문
 
 		while (on) {
 			// 디폴트 화면 (목록)
@@ -47,7 +47,6 @@ public class UserApp {
 						if (choice.equals("1")) {
 							// 정보수정 로직
 							System.out.println("회원정보가 수정되었습니다.");
-							
 
 						} else if (choice.equals("2")) {
 							// 지금까지의 주문내역 로직짜기
@@ -58,11 +57,11 @@ public class UserApp {
 							System.out.println("주문을 해주세용");
 						} else if (choice.equals("0")) {
 							System.out.println("뒤로가기");
-							
+
 							on2 = false;
 							on3 = false;
-							
-						}else {
+
+						} else {
 							System.out.println("잘못입력하셨습니다.");
 						}
 					}
@@ -94,8 +93,7 @@ public class UserApp {
 				on = false;
 			}
 
-		}	// 목록 while 끝
+		} // 목록 while 끝
 
-
-	} 
+	}
 }
