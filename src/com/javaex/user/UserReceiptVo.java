@@ -3,11 +3,11 @@ package com.javaex.user;
 public class UserReceiptVo {
 	
 	//필드
-	private int receipt_id;
-	private int user_id;
-	private String receipt_date;
-	private String receipt_finish;
-	private String receipt_state;
+	private int receipt_id;	//영수증번호
+	private int user_id;	//회원번호
+	private String receipt_date;	//주문시간
+	private String receipt_finish;	//제조완료시간
+	private String receipt_state;	//주문상태
 	
 	//생성자
 	public UserReceiptVo() {
