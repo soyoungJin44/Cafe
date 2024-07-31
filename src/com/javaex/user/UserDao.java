@@ -1,4 +1,4 @@
-package com.javaex.admin;
+package com.javaex.user;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

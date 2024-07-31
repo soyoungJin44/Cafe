@@ -1,20 +1,20 @@
-package com.javaex.admin;
+package com.javaex.user;
 
-public class UserVo {
+public class UserDrinkVo {
 	
 	//필드
-	private int drink_id;
-	private String drink;
-	private String drink_content;
-	private String drink_price;
+	private int drink_id;	//상품번호
+	private String drink;	//상품명
+	private String drink_content;	//상품설명
+	private String drink_price;		//상품가격
 	
 	//생성자
 
-	public UserVo() {
+	public UserDrinkVo() {
 		super();
 	}
 	
-	public UserVo(int drink_id, String drink, String drink_content, String drink_price) {
+	public UserDrinkVo(int drink_id, String drink, String drink_content, String drink_price) {
 		this.drink_id = drink_id;
 		this.drink = drink;
 		this.drink_content = drink_content;
