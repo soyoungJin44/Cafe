@@ -56,7 +56,20 @@ public class UserApp {
 
 						if (choice.equals("1")) {
 							// 정보수정 로직
+							System.out.print("아이디를 입력해주세요:");
+							String rid = sc.nextLine();
+							System.out.print("비밀번호를 입력해주세요:");
+							String rpw = sc.nextLine();
+							System.out.print("이름을 입력해주세요:");
+							String rname = sc.nextLine();
+							System.out.print("번호를 입력해주세요:");
+							String rhp = sc.nextLine();
+							
+							userDao.updateUser(rid, rpw, rname, rhp, loginNo);
+							
 							System.out.println("회원정보가 수정되었습니다.");
+							
+							
 
 						} else if (choice.equals("2")) {
 							// 지금까지의 주문내역 로직짜기
@@ -97,7 +110,7 @@ public class UserApp {
 									System.out.println("<주문내역>");
 									
 									rid = userDao.insertReceipt(loginNo);
-								
+								    //count
 
 								UserVo result = new UserVo(food, amount);
 								foodList.add(result);
