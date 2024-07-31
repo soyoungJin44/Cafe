@@ -234,6 +234,6 @@ public class MyDb {
 	 from receipt
 	 where user_id = 1;
 	 
-	 select *
+	 select *  
 	 from receipt;
 }
