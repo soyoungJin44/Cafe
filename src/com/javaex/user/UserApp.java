@@ -1,17 +1,24 @@
 package com.javaex.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserApp {
 
 	public static void main(String[] args) {
 
+		UserDao userDao = new UserDao(); // UserDao 주소값 가져오기
 		Scanner sc = new Scanner(System.in);
+		List<UserVo> foodList = new ArrayList<UserVo>();
 
 		boolean on = true; // 목록 while문
 		boolean on2 = true; // 로그인 while문
 		boolean on3 = true; // 로그인성공시 while문
 		boolean on4 = true; // 회원가입 while문
+		boolean stop = true; // 임시 while문(주문받기)
+
+		int loginNo = 0; // 로그인된 번호(입력받을번호)
 
 		while (on) {
 			// 디폴트 화면 (목록)
@@ -23,7 +30,7 @@ public class UserApp {
 			String num = sc.nextLine();
 
 			// (로그인)
-
+			loginNo = users.get(userId);
 			if (num.equals("1")) {
 
 				while (on2) {
@@ -32,6 +39,9 @@ public class UserApp {
 					String id = sc.nextLine();
 					System.out.print("비밀번호를 입력해주세요:");
 					String pw = sc.nextLine();
+
+					// 로그인
+
 					System.out.println("============= 로그인성공 ===============");
 
 					while (on3) {
@@ -53,8 +63,57 @@ public class UserApp {
 							System.out.println("지금까지의 주문내역입니다.");
 
 						} else if (choice.equals("3")) {
+							// 상품 리스트 출력로직
+							List<UserDrinkVo> drink = userDao.selectDrinkAll();
+							for (int i = 0; i < drink.size(); i++) {
+								System.out.println(drink.get(i));
+							}
+								boolean stop2 = true;
+							// List<Integer> foodList = new ArrayList<Integer>(); : 주문받은것 관리용 리스트
 							// 주문하기 로직
-							System.out.println("주문을 해주세용");
+							// 반복
+							while (stop) {
+								
+								int food = 0;
+								int amount = 0;
+								int count = 0;
+								
+								
+								while (stop2) {
+									
+									System.out.print("원하시는 상품을 입력해주세요:");
+									food = sc.nextInt(); // 번호로 입력받고
+									
+									if (food == 0) {
+										stop2 = false;
+										
+									}else{
+										System.out.print("수량을 입력해주세요:");
+										amount = sc.nextInt();
+										count++;
+									}	
+									
+									System.out.println("<주문내역>");
+									
+									userDao.insertReceipt(loginNo);
+								
+
+								UserVo result = new UserVo(food, amount);
+								foodList.add(result);
+								
+								}
+							}
+
+							// 반복
+							/*
+							 * 주문 음료 리스트로 가지고 있어라 0
+							 * 
+							 * 영수증번호를 인설트해주고 >> 인설트된 영수증번호로 userDao.insetReceipt(loginNo); int receiptId =
+							 * userDao.selectReceiptId();
+							 * 
+							 * 반복 리스트의 사이즈만큼 userDao.insertOrderUser(receiptId,회원번호, food, mount ) 반복
+							 */
+
 						} else if (choice.equals("0")) {
 							System.out.println("뒤로가기");
 

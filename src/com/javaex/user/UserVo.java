@@ -8,11 +8,19 @@ public class UserVo {
 	   private String pw; // 계정 비밀번호
 	   private String name; // 회원 이름
 	   private String hp; // 회원 전화번호
-
+	   	//
+	   private int food;
+	   private int amount;
 	   
 	   //생성자
 	   public UserVo() { // 기본생성자
 
+	   }
+	   
+	   //스캐너 입력받는 생성자
+	   public UserVo(int food, int amount) {
+		   this.food = food;
+		   this.amount = amount;
 	   }
 
 	   public UserVo(int userId, String id, String pw, String name, String hp) { // 회원가입시 입력하는 정보
@@ -62,8 +70,26 @@ public class UserVo {
 	   public void setHp(String hp) {
 	      this.hp = hp;
 	   }
+	   
+	   
 
-	   @Override
+	   public int getFood() {
+		return food;
+	}
+
+	public void setFood(int food) {
+		this.food = food;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	@Override
 	   public String toString() {
 	      return "UserVo [userId=" + userId + ", id=" + id + ", pw=" + pw + ", name=" + name + ", hp=" + hp + "]";
 	   }

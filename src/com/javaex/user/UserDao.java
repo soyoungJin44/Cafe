@@ -18,12 +18,13 @@ public class UserDao {
 
 	// 2번
 	private String driver = "com.mysql.cj.jdbc.Driver";
-	private String url = "jdbc:mysql://localhost:3306/book_db";
+	private String url = "jdbc:mysql://localhost:3306/cafe_db";
 	private String id = "cafe";
 	private String pw = "cafe";
 
 	// db연결 일반메소드
 	private void getConnection() {
+
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
 			Class.forName(driver);
@@ -180,8 +181,8 @@ public class UserDao {
 			// sql문
 			String query = "";
 			query += " select drink_id ";
-			query += " 		 ,drink ";
-			query += " 	     ,drink_cotent ";
+			query += " 		 ,drink_name ";
+			query += " 	     ,drink_content ";
 			query += " 		 ,drink_price ";
 			query += " from Drink ";
 
@@ -194,7 +195,7 @@ public class UserDao {
 			// 반복
 			while (rs.next()) {
 				int id = rs.getInt("drink_id");
-				String drink = rs.getString("drink");
+				String drink = rs.getString("drink_name");
 				String content = rs.getString("drink_content");
 				String price = rs.getString("drink_price");
 
@@ -207,8 +208,196 @@ public class UserDao {
 		}
 		this.close();
 		return drinkList;
-		
 
 	}
+
+	// 상품선택 메서드
+	public int insertUserOrder(int userOrderId, int drinkId, int drinkCnt) {
+
+		int count = -1;
+
+		// DB연결 메소드 호출
+		this.getConnection();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+
+			// - sql문 준비
+			String query = "";
+			query += " insert into userorder ";
+			query += " values (null , ?, ?) ";
+
+			// - 바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, drinkId);
+			pstmt.setInt(2, drinkCnt);
+
+			// - 실행
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			System.out.println(count + "건 접수 되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+	} // 상품선택 메서드 끝
+
+	// receipt insert (입력받은 상품 영수증)
+	// 영수증번호 인설트메서드
+	public int insertReceipt(int user_id) {
+		int count = -1;
+
+		// DB연결 메소드 호출
+		this.getConnection();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+
+			// - sql문 준비
+			String query = "";
+			query += " insert into receipt (receipt_id, user_id,receipt_state) ";
+			query += " values (null,?,?) ";
+
+			/*
+			 * INSERT INTO 테이블명 (COLUMN_LIST) VALUES (COLUMN_LIST에 넣을 VALUE_LIST);
+			 * 
+			 */
+
+			// - 바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, user_id); // 로그인시 자동생성된 user_id
+			pstmt.setString(2, "준비");
+
+			// - 실행
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			// System.out.println((count/2) + "건 접수 되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+	}
+
+	public int insertUserOrder(int receipt_id, int userId, int drinkId, int drinkCnt) {
+		
+				
+		// DB연결 메소드 호출
+				this.getConnection(); 
+				int count = -1;
+				try {
+					// 3. SQL문 준비 / 바인딩 / 실행
+
+					// - sql문 준비
+					String query = "";
+					query += " insert into userOrder ";
+					query += " values  ( null,?,?,?,?) ";
+
+	
+					// - 바인딩
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1,receipt_id);	
+					pstmt.setInt(2, userId);
+					pstmt.setInt(3, drinkId);
+					pstmt.setInt(4, drinkCnt);
+					
+
+					// - 실행
+					pstmt.executeUpdate();
+					
+					
+					// 4.결과처리
+					// System.out.println((count/2) + "건 접수 되었습니다.");
+
+				} catch (SQLException e) {
+					System.out.println("error:" + e);
+				}
+
+				this.close();
+				return count;
+		
+	}
+
+	// selectReceiptId
+
+	public int selectReceiptId(int loginNo) {
+	      
+	      
+	      UserOrderVo usVo = new UserOrderVo();
+	      int receiptId = 0;
+	      
+	      int count = -1; //최소값을 일부러 -1로 넣는다 
+
+	      this.getConnection();
+
+	      try {
+	         // 3. SQL문 준비 / 바인딩 / 실행
+
+	         // - sql문 준비
+	         String query = ""; 
+	         query += " select receipt_id  ";
+	         query += "   from userOrder ";
+	         query += "    where user_id = ? ";
+
+	         // - 바인딩
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, loginNo);
+	         
+
+	         // - 실행
+	         rs = pstmt.executeQuery();
+	         
+	         
+	         // 4.결과처리
+	         rs.next();
+	         receiptId = rs.getInt("receipt_id");
+	         
+
+	         /*
+	                  
+	         while (rs.next()) {
+	         
+	            int receiptId = rs.getInt("receipt_id");
+	            String title = rs.getString("title");
+	            String pubs = rs.getString("pubs");
+	            String pubDate = rs.getString("pub_date");
+	            int authorId = rs.getInt("author_id");
+	            
+	            bookVo.setBookId(bookId);
+	            bookVo.setTitle(title);
+	            bookVo.setPubs(pubs);
+	            bookVo.setPub_date(pubs);
+	            bookVo.setAuthor_id(authorId);
+	            
+	         }
+	         */
+	         
+	         System.out.println( (count+2) + "건 조회 되었습니다.");
+
+	         
+	      }  catch (SQLException e) {
+	         System.out.println("error:" + e);
+	      }
+
+	      this.close();
+	      
+	      
+	      return receiptId; //orderUser 의 id
+	   }
+	
+	
+	
+
+	
+	
 
 }
