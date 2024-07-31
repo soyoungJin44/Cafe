@@ -174,7 +174,7 @@ public class UserDao {
 				count++;
 
 			}
-			System.out.println("로그인 되었습니다");
+			// System.out.println("로그인 되었습니다");
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -455,8 +455,103 @@ public class UserDao {
 	      return receiptId; //orderUser 의 id
 	   }
 	
+	public int InsertUserOrder(int receiptId, int userId, int drinkId, int drinkCnt) {
+		
+		int count = 0;
+		// DB연결 메소드 호출
+		this.getConnection();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+
+			// - sql문 준비
+			String query = "";
+			query += " insert into userOrder ";
+			query += " values (null , ?, ?, ?, ?) ";
+			
+			// - 바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, receiptId);
+			pstmt.setInt(2, userId);
+			pstmt.setInt(3, drinkId);
+			pstmt.setInt(4, drinkCnt);
+			
+
+			// - 실행
+			count =  pstmt.executeUpdate();
+
+			// 4.결과처리
+			//System.out.println(count + "건 접수 되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+		
+	}
 	
-	
+	//selectAll
+	  // 회원 번호를 입력해주세요
+	   // 회원 주문 정보 조회 -- selectall by userid
+	   
+	   public List<AllVo> selectAllOrderReceipt(int userId) {
+
+	      System.out.println("전체 조회 로직");
+
+	      //리스트 만들기
+	      List<AllVo> orderReceiptList = new ArrayList<AllVo>();
+
+	      int count = -1; //최소값을 일부러 -1로 넣는다 
+	      
+	      this.getConnection();
+
+	      try {
+	         // 3. SQL문 준비 / 바인딩 / 실행
+
+	         // - sql문 준비
+	    	  String query = ""; 
+	          query += " select   receipt_id, ";
+	          query += "          receipt_finish ";
+	          query += " from receipt ";
+	          query += " where user_id = ? ";
+
+	         // - 바인딩
+	         pstmt = conn.prepareStatement(query);
+
+	         // - 실행
+	         rs = pstmt.executeQuery();
+	         pstmt.setInt(3, userId);
+
+
+	         // 4.결과처리
+	                  
+	         while (rs.next()) {
+	         
+	            int receiptId = rs.getInt("receipt_id");
+	            String receiptFinish = rs.getString("receipt_finish");
+	            
+	            AllVo userVo = new AllVo(receiptId, receiptFinish);
+	            orderReceiptList.add(userVo);
+	            
+	            count++; 
+	            
+	         }
+	         
+	         System.out.println(count + "건 조회 되었습니다.");
+
+	         
+	      }  catch (SQLException e) {
+	         System.out.println("error:" + e);
+	      }
+
+	      this.close();
+
+
+	      return orderReceiptList;
+	   }
 
 	
 	
