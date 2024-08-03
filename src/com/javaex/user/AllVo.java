@@ -139,7 +139,7 @@ public class AllVo {
 	      this.receiptId = receiptId;
 	   }
 	   public String getReceiptDate() {
-	      return receiptDate;
+	      return receiptDate; 
 	   }
 	   public void setReceiptDate(String receiptDate) {
 	      this.receiptDate = receiptDate;
