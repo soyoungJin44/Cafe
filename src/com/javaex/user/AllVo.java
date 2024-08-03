@@ -40,6 +40,12 @@ public class AllVo {
 	   public AllVo() {
 	   }
 	   
+	   public AllVo(int drinkId,String drinkName, int drinkCnt) {
+		      this.drinkId = drinkId;
+		      this.drinkName = drinkName;
+		      this.drinkCnt = drinkCnt;
+		   }
+	   
 	   public AllVo(int receiptId, String receiptFinish) {
 	      this.receiptId = receiptId;
 	      this.receiptFinish = receiptFinish;

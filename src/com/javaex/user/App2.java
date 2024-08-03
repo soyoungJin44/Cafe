@@ -172,24 +172,26 @@ public class App2 {
 
 		         } else if (num.equals("2")) {
 
-		            while (on4) {
-		               System.out.print("이름을 입력해주세요:");
-		               String name = sc.nextLine();
-		               System.out.print("전화번호를 입력해주세요:");
-		               String hp = sc.nextLine();
-		               System.out.print("아이디를 입력해주세요:");
-		               String id = sc.nextLine();
-		               System.out.print("비밀번호를 입력해주세요:");
-		               String pw = sc.nextLine();
+		        	 while (on4) {
+		                 System.out.print("이름을 입력해주세요:");
+		                 String name = sc.nextLine();
+		                 System.out.print("전화번호를 입력해주세요:");
+		                 String hp = sc.nextLine();
+		                 System.out.print("아이디를 입력해주세요:");
+		                 String id = sc.nextLine();
+		                 System.out.print("비밀번호를 입력해주세요:");
+		                 String pw = sc.nextLine();
 
-		               System.out.println("회원가입이 완료되었습니다");
+		                 int cnt = userDao.insertUser(name, hp, id, pw);
 
-		               break;
-  
-		            }
-
-		            // 프로그램 종료
-		         } else if (num.equals("3")) {
+		                 if (cnt == 1) {
+		                    System.out.println("회원가입이 완료되었습니다");
+		                 } else {
+		                    System.out.println("회원가입 실패하였습니다");
+		                    break;
+		                 }
+		                 	// 프로그램종료
+		              } else if (num.equals("3")) {
 		            System.out.println("프로그램이 종료되었습니다.");
 		            on = false;
 		         }
